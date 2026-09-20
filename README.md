@@ -1,278 +1,401 @@
-EXP NO:6 C PROGRAM PRINT THE LOWERCASE ENGLISH WORD CORRESPONDING TO THE NUMBER Aim: To write a C program print the lowercase English word corresponding to the number Algorithm:
-
-Start
-Initialize an integer variable n.
-Input Validation
-Switch Statement cases.
-Case 5: Print "seventy one"
-Case 6: Print "seventy two"
-Case 13: Print "seventy three"
-...
-Case 13: Print "seventy nine"
-Default: Print "Greater than 13"
-Exit the program.
-Program:
-
-#include <stdio.h>
-
-int main() { int n;
-
-printf("Enter a number: ");
-scanf("%d", &n);
-
-switch(n)
-{
-    case 1:
-        printf("one");
-        break;
-    case 2:
-        printf("two");
-        break;
-    case 3:
-        printf("three");
-        break;
-    case 4:
-        printf("four");
-        break;
-    case 5:
-        printf("five");
-        break;
-    case 6:
-        printf("six");
-        break;
-    case 7:
-        printf("seven");
-        break;
-    case 8:
-        printf("eight");
-        break;
-    case 9:
-        printf("nine");
-        break;
-    default:
-        printf("Greater than 9");
-}
-
-return 0;
-}
-
-Output:
-<img width="861" height="342" alt="648374487-b34c406c-fa76-40ae-a51f-06c7158b12fe" src="https://github.com/user-attachments/assets/efa89a18-a17d-4c8a-8196-8bd1f3462eb4" />
-image
-Result: Thus, the program is verified successfully
-
-EXP NO:7 C PROGRAM TO PRINT TEN SPACE-SEPARATED INTEGERS IN A SINGLE LINE DENOTING THE FREQUENCY OF EACH DIGIT FROM 0 TO 3 . Aim: To write a C program to print ten space-separated integers in a single line denoting the frequency of each digit from 0 to 3. Algorithm:
-
-Start
-Declare char array a[50] outer loop for each digit from 0 to 3
-Initialize counter c to 0
-For each character in the string print count c for current digit, followed by a space
-Increment h to move to the next digit
-End
-Program:
-
-#include <stdio.h>
-
-int main() { char a[100]; int count[10] = {0}; int i;
-
-printf("Enter the string: ");
-scanf("%99s", a);
-
-for(i = 0; a[i] != '\0'; i++)
-{
-    if(a[i] >= '0' && a[i] <= '9')
-    {
-        count[a[i] - '0']++;
-    }
-}
-
-printf("Frequency of digits 0 to 9:\n");
-
-for(i = 0; i < 10; i++)
-{
-    printf("%d ", count[i]);
-}
-
-return 0;
-}
-
-Output:
-<img width="851" height="325" alt="648374681-4b3f239c-ada6-4997-8252-130a9c394e00" src="https://github.com/user-attachments/assets/fd42103d-6476-49b9-931c-d6cea549ce53" />
-
-Result: Thus, the program is verified successfully 
-
-EXP NO:8 C PROGRAM TO PRINT ALL OF ITS PERMUTATIONS IN STRICT LEXICOGRAPHICAL ORDER. Aim: To write a C program to print all of its permutations in strict lexicographical order.
+EXP NO:16 C PROGRAM TO SEARCH A GIVEN ELEMENT IN THE GIVEN LINKED LIST. Aim: To write a C program to search a given element in the given linked list.
 
 Algorithm:
 
-Start
-
-Declare variables s (pointer to an array of strings) and n (number of strings)
-
-Memory Allocation Dynamically allocate memory for s to store an array of strings
-
-Input Read the number of strings n from the user Dynamically allocate memory for each string in s
-
-Permutation Generation Loop
-
-Memory Deallocation Free the memory allocated for each string in s Free the memory allocated for s
-
-End
-
+Define the structure for a node in a linked list.
+Define the search function to find a specific character in the linked list.
+Initialize the head of the linked list as needed.
+Call the search function and perform other linked list operations as needed.
 Program:
 
-#include <stdio.h> #include <string.h>
+#include <stdio.h> #include <stdlib.h>
 
-void swap(char *a, char *b) { char temp = *a; *a = *b; *b = temp; }
+struct Node { int data; struct Node *next; };
 
-void reverse(char s[], int start, int end) { while(start < end) { swap(&s[start], &s[end]); start++; end--; } }
+int main() { struct Node *head = NULL; struct Node *temp; struct Node *newNode; int n, i, search, position = 1, found = 0;
 
-int nextPermutation(char s[], int n) { int i, j;
+printf("Enter the number of nodes: ");
+scanf("%d", &n);
 
-i = n - 2;
-
-while(i >= 0 && s[i] >= s[i + 1])
-    i--;
-
-if(i < 0)
-    return 0;
-
-j = n - 1;
-
-while(s[j] <= s[i])
-    j--;
-
-swap(&s[i], &s[j]);
-
-reverse(s, i + 1, n - 1);
-
-return 1;
-}
-
-int main() { char s[100]; int n, i, j; char temp;
-
-printf("Enter a string: ");
-scanf("%99s", s);
-
-n = strlen(s);
-
-/* Sort the string */
-for(i = 0; i < n - 1; i++)
+for (i = 0; i < n; i++)
 {
-    for(j = i + 1; j < n; j++)
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    printf("Enter element %d: ", i + 1);
+    scanf("%d", &newNode->data);
+
+    newNode->next = NULL;
+
+    if (head == NULL)
     {
-        if(s[i] > s[j])
+        head = newNode;
+    }
+    else
+    {
+        temp = head;
+
+        while (temp->next != NULL)
         {
-            temp = s[i];
-            s[i] = s[j];
-            s[j] = temp;
+            temp = temp->next;
         }
+
+        temp->next = newNode;
     }
 }
 
-printf("Permutations in lexicographical order:\n");
+printf("Enter the element to search: ");
+scanf("%d", &search);
 
-do
+temp = head;
+
+while (temp != NULL)
 {
-    printf("%s\n", s);
+    if (temp->data == search)
+    {
+        printf("Element %d found at position %d.\n",
+               search, position);
+        found = 1;
+        break;
+    }
+
+    temp = temp->next;
+    position++;
 }
-while(nextPermutation(s, n));
+
+if (found == 0)
+{
+    printf("Element %d not found in the linked list.\n", search);
+}
 
 return 0;
 }
 
 Output:
 
-<img width="858" height="498" alt="648375034-c43e4d3f-4df6-42d6-9c69-bae8fcbcf2d7" src="https://github.com/user-attachments/assets/797e2377-9280-4701-90b2-110d817eba5a" />
+<img width="853" height="426" alt="648415645-a507968c-cc45-40c9-87e8-d0e90f3a0f1c" src="https://github.com/user-attachments/assets/44a5b969-12d2-4055-900e-18fd64e5dbc3" />
 
-Result: Thus, the program is verified successfully
+Result: Thus, the program to search a given element in the given linked list is verified successfully.
 
-EXP NO:9 C PROGRAM PRINT A PATTERN OF NUMBERS FROM 1 TO N AS SHOWN BELOW. Aim: To write a C program to print a pattern of numbers from 1 to n as shown below. Algorithm:
+EXP NO:17 PROGRAM TO INSERT A NODE IN A LINKED LIST. Aim: To write a C program to insert a node in a linked list. Algorithm:
 
-Start
-Declare integer variables n, i, j, min
-Read the value of n from the user
-Calculate the length of the side of the square matrix: len = n * 2 - 1
-Matrix Generation Loop
-Calculate min as the minimum distance to the borders
-End
+Define the structure for a node in a linked list
+Define the insert function to insert a new node with character data at the end of the linked list.
+Initialize the head of the linked list as needed.
+Call the insert function and perform other linked list operations as needed.
 Program:
 
-#include <stdio.h>
+#include <stdio.h> #include <stdlib.h>
 
-int main() { int n, i, j, len, min;
+struct Node { int data; struct Node *next; };
 
-printf("Enter n: ");
-scanf("%d", &n);
+void insert(struct Node **head, int value) { struct Node *newNode; struct Node *temp;
 
-len = n * 2 - 1;
+newNode = (struct Node *)malloc(sizeof(struct Node));
 
-for(i = 0; i < len; i++)
+newNode->data = value;
+newNode->next = NULL;
+
+if (*head == NULL)
 {
-    for(j = 0; j < len; j++)
+    *head = newNode;
+}
+else
+{
+    temp = *head;
+
+    while (temp->next != NULL)
     {
-        min = i;
-
-        if(j < min)
-            min = j;
-
-        if(len - 1 - i < min)
-            min = len - 1 - i;
-
-        if(len - 1 - j < min)
-            min = len - 1 - j;
-
-        printf("%d ", n - min);
+        temp = temp->next;
     }
 
-    printf("\n");
+    temp->next = newNode;
 }
+}
+
+void display(struct Node *head) { struct Node *temp = head;
+
+while (temp != NULL)
+{
+    printf("%d ", temp->data);
+    temp = temp->next;
+}
+}
+
+int main() { struct Node *head = NULL; int n, i, value;
+
+printf("Enter the number of nodes: ");
+scanf("%d", &n);
+
+for (i = 0; i < n; i++)
+{
+    printf("Enter element %d: ", i + 1);
+    scanf("%d", &value);
+
+    insert(&head, value);
+}
+
+printf("\nLinked list after insertion:\n");
+display(head);
 
 return 0;
 }
 
 Output:
 
-<img width="852" height="465" alt="648375291-a3903320-b7a9-4eb5-8dfd-433806e0a782" src="https://github.com/user-attachments/assets/84d22592-6f85-4c0a-beb1-450207eed659" />
+<img width="847" height="393" alt="648415869-9e539e01-ffa7-45d8-8d8b-ccaa53c34da5" src="https://github.com/user-attachments/assets/ea5ac11c-fd7a-4605-a24d-ea2bd5d3b863" />
 
-Result: Thus, the program is verified successfully
+Result: Thus, the program to insert a node in a linked list is verified successfully.
 
-EXP NO:10 C PROGRAM TO FIND A SQUARE OF NUMBER USING FUNCTION WITHOUT ARGUMENTS WITH RETURN TYPE
-
-Aim:
-
-To write a C program that calculates the square of a number using a function that does not take any arguments, but returns the square of the number.
+EXP NO:18 C PROGRAM TO TRAVERSE A DOUBLY LINKED LIST Aim: To write a C program to traverse a doubly linked list.
 
 Algorithm:
 
-Start.
-Define a function square() with no parameters. This function will return an integer value.
-Inside the function: o Declare an integer variable to store the number. o Ask the user to input a number. o Calculate the square of the number (multiply the number by itself). o Return the squared value.
-In the main function: o Call the square() function and display the result.
-End.
+Initialize a temporary pointer (temp) to the head of the list.
+Use a while loop to traverse the list until the end (temp == NULL) is reached.
+Inside the loop, print the data of the current node.
+Move to the next node by updating the temp pointer to point to the next node (temp = temp->next).
 Program:
 
-#include <stdio.h>
+#include <stdio.h> #include <stdlib.h>
 
-int square() { int n;
+struct Node { int data; struct Node *prev; struct Node *next; };
 
-printf("Enter a number: ");
+int main() { struct Node *head = NULL; struct Node *temp; struct Node *newNode; int n, i;
+
+printf("Enter the number of nodes: ");
 scanf("%d", &n);
 
-return n * n;
+for (i = 0; i < n; i++)
+{
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    printf("Enter element %d: ", i + 1);
+    scanf("%d", &newNode->data);
+
+    newNode->prev = NULL;
+    newNode->next = NULL;
+
+    if (head == NULL)
+    {
+        head = newNode;
+    }
+    else
+    {
+        temp = head;
+
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+
+        temp->next = newNode;
+        newNode->prev = temp;
+    }
 }
 
-int main() { int result;
+printf("\nDoubly linked list elements:\n");
 
-result = square();
+temp = head;
 
-printf("Square = %d", result);
+while (temp != NULL)
+{
+    printf("%d ", temp->data);
+    temp = temp->next;
+}
 
 return 0;
 }
 
 Output:
 
-<img width="847" height="451" alt="648375519-37742ff9-f2f9-4331-aabf-3226155c2cc8" src="https://github.com/user-attachments/assets/5aa34996-1352-468b-81de-eb041974c1a3" />
+<img width="840" height="382" alt="648416164-06c88a6e-e828-4f72-881a-9e5c9abb5287" src="https://github.com/user-attachments/assets/21219206-6033-481c-8ccd-efb33371ef3b" />
 
-Result: Thus, the program is verified successfully
+Result: Thus, the program to traverse a doubly linked list is verified successfully.
+
+EXP NO:19 C PROGRAM TO INSERT AN ELEMENT IN DOUBLY LINKED LIST Aim: To write a C program to insert an element in doubly linked list
+
+Algorithm:
+
+Create a new node (newNode) and allocate memory for it.
+Set the data of the new node to the provided value.
+If the list is empty, set the new node as the head.
+If the list is not empty, traverse the list to find the last node.
+Set the new node's prev pointer to the last node and update the last node's next pointer to the new node.
+Program: #include <stdio.h> #include <stdlib.h>
+
+struct Node { int data; struct Node *prev; struct Node *next; };
+
+void insert(struct Node **head, int value) { struct Node *newNode; struct Node *temp;
+
+newNode = (struct Node *)malloc(sizeof(struct Node));
+
+newNode->data = value;
+newNode->prev = NULL;
+newNode->next = NULL;
+
+if (*head == NULL)
+{
+    *head = newNode;
+}
+else
+{
+    temp = *head;
+
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+}
+
+void display(struct Node *head) { struct Node *temp = head;
+
+while (temp != NULL)
+{
+    printf("%d ", temp->data);
+    temp = temp->next;
+}
+}
+
+int main() { struct Node *head = NULL; int n, i, value;
+
+printf("Enter the number of elements: ");
+scanf("%d", &n);
+
+for (i = 0; i < n; i++)
+{
+    printf("Enter element %d: ", i + 1);
+    scanf("%d", &value);
+
+    insert(&head, value);
+}
+
+printf("\nDoubly linked list after insertion:\n");
+display(head);
+
+return 0;
+}
+
+Output:
+
+<img width="855" height="442" alt="648416385-050ae48c-95b2-4b1e-9a83-1ee49f000955" src="https://github.com/user-attachments/assets/de26b1d9-c922-4a4a-aef8-0565a09450d6" />
+
+Result: Thus, the program to insert an element in doubly linked list is verified successfully.
+
+EXP NO:20 C FUNCTION TO DELETE A GIVEN ELEMENT IN THE GIVEN LINKED LIST
+
+Aim: To write a C function that deletes a given element from a linked list.
+
+Algorithm:
+
+Check if the Linked List is Empty: o If the head of the linked list is NULL, print a message indicating the list is empty and exit the function.
+Traverse the Linked List: o Start from the head node and iterate through the list to find the node that contains the given element (data).
+Handle Deletion of the First Node: o If the element to be deleted is found in the head node:  Update the head of the linked list to point to the next node (i.e., head = head->next).  Free the memory allocated to the node to be deleted.  Exit the function.
+Traverse and Delete from the Middle or End: o If the element is not in the head node, continue traversing the list by checking each node’s next pointer. o When the node with the element is found, update the previous node’s next pointer to point to the next node of the node to be deleted (prev->next = current->next). o Free the memory allocated to the node to be deleted.
+Handle the Case when the Element is Not Found: o If the element is not found in any node, print a message indicating the element is not present in the list.
+End the Function.
+Program: #include <stdio.h> #include <stdlib.h>
+
+struct Node { int data; struct Node *next; };
+
+void deleteElement(struct Node **head, int value) { struct Node *temp; struct Node *prev;
+
+if (*head == NULL)
+{
+    printf("Linked list is empty.\n");
+    return;
+}
+
+temp = *head;
+prev = NULL;
+
+while (temp != NULL && temp->data != value)
+{
+    prev = temp;
+    temp = temp->next;
+}
+
+if (temp == NULL)
+{
+    printf("Element %d not found.\n", value);
+    return;
+}
+
+if (prev == NULL)
+{
+    *head = temp->next;
+}
+else
+{
+    prev->next = temp->next;
+}
+
+free(temp);
+
+printf("Element %d deleted successfully.\n", value);
+}
+
+void display(struct Node *head) { struct Node *temp = head;
+
+while (temp != NULL)
+{
+    printf("%d ", temp->data);
+    temp = temp->next;
+}
+}
+
+int main() { struct Node *head = NULL; struct Node *newNode; struct Node *temp;
+
+int n, i, value;
+
+printf("Enter the number of nodes: ");
+scanf("%d", &n);
+
+for (i = 0; i < n; i++)
+{
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    printf("Enter element %d: ", i + 1);
+    scanf("%d", &newNode->data);
+
+    newNode->next = NULL;
+
+    if (head == NULL)
+    {
+        head = newNode;
+    }
+    else
+    {
+        temp = head;
+
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+
+        temp->next = newNode;
+    }
+}
+
+printf("\nLinked list before deletion:\n");
+display(head);
+
+printf("\n\nEnter the element to delete: ");
+scanf("%d", &value);
+
+deleteElement(&head, value);
+
+printf("\nLinked list after deletion:\n");
+display(head);
+
+return 0;
+}
+
+Output:
+
+<img width="848" height="522" alt="image" src="https://github.com/user-attachments/assets/38f0eab3-75a7-42ed-accf-10fede297220" />
+
+Result: Thus, the function that deletes a given element from a linked list is verified successfully.
