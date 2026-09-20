@@ -99,7 +99,7 @@ return 0;
 Output:
 <img width="851" height="325" alt="648374681-4b3f239c-ada6-4997-8252-130a9c394e00" src="https://github.com/user-attachments/assets/fd42103d-6476-49b9-931c-d6cea549ce53" />
 
-Result: Thus, the program is verified successfully
+Result: Thus, the program is verified successfully 
 
 EXP NO:8 C PROGRAM TO PRINT ALL OF ITS PERMUTATIONS IN STRICT LEXICOGRAPHICAL ORDER. Aim: To write a C program to print all of its permutations in strict lexicographical order.
 
